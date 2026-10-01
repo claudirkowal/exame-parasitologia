@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Examen de Enteroparásitos</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0 auto;
+            padding: 15px;
+            background-color: #f4f7f6;
+            max-width: 800px;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        h1 {
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+        h2 {
+            margin-top: 30px;
+            border-bottom: 2px solid #bdc3c7;
+            padding-bottom: 8px;
+            color: #2980b9;
+            font-size: 1.3em;
+        }
+        .quiz-container {
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-block:last-child {
+            border-bottom: none;
+        }
+        .question-text {
+            font-weight: bold;
+            font-size: 1em;
+            margin-bottom: 12px;
+            color: #2c3e50;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        button.option-btn {
+            background-color: #ecf0f1;
+            border: 2px solid #bdc3c7;
+            color: #2c3e50;
+            padding: 12px 15px;
+            text-align: left;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.2s ease;
+            width: 100%;
+            touch-action: manipulation;
+            word-break: break-word;
+        }
+        button.option-btn:hover:not(:disabled) {
+            background-color: #d5dbdb;
+            border-color: #95a5a6;
+        }
+        button.option-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+        .explanation {
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 8px;
+            display: none;
+            font-size: 0.95em;
+            background-color: #e8f8f5;
+            border-left: 4px solid #1abc9c;
+            word-wrap: break-word;
+        }
+        .explanation.correct {
+            background-color: #d5f5e3;
+            border-left-color: #2ecc71;
+        }
+        .explanation.incorrect {
+            background-color: #fadbd8;
+            border-left-color: #e74c3c;
+        }
+        .badge {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        /* Estilos para los inputs de completar */
+        .fill-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .fill-input {
+            padding: 12px;
+            font-size: 1em;
+            border: 2px solid #bdc3c7;
+            border-radius: 8px;
+            width: 100%;
+            touch-action: manipulation;
+        }
+        .fill-input:disabled {
+            background-color: #ecf0f1;
+            cursor: not-allowed;
+        }
+        .check-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background 0.2s;
+            width: 100%;
+            touch-action: manipulation;
+        }
+        .check-btn:hover:not(:disabled) {
+            background-color: #2980b9;
+        }
+        .check-btn:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
+        /* Estilo para el resultado final */
+        #resultado-final {
+            margin-top: 30px;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            border-radius: 8px;
+            display: none;
+            word-wrap: break-word;
+        }
+        .aprobado {
+            background-color: #d5f5e3;
+            color: #1e8449;
+            border: 2px solid #2ecc71;
+        }
+        .reprobado {
+            background-color: #fadbd8;
+            color: #c0392b;
+            border: 2px solid #e74c3c;
+            font-size: 1.8em !important;
+            text-transform: uppercase;
+            padding: 30px 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Examen de Enteroparásitos</h1>
+
+    <div class="quiz-container">
+        <p>Lee atentamente cada caso clínico o ejercicio. Selecciona la opción correcta o escribe la palabra que falta. Al responder, se mostrará la explicación debajo. El examen finaliza cuando respondas todas las preguntas.</p>
+
+        <h2>Parte 1: Casos Clínicos (Opción Múltiple)</h2>
+
+        <!-- Caso Clínico 1 -->
+        <div class="question-block" data-q="1">
+            <div class="question-text">1. Niño de 6 años procedente de zona rural. Presenta palidez marcada, fatiga y pica (geofagia). En el laboratorio se observa anemia ferropénica y huevos en heces. ¿Cuál es el agente causal más probable?</div>
+            <div class="options">
+                <button type="button" class="option-btn" data-q="1" data-opt="A">A) Ascaris lumbricoides</button>
+                <button type="button" class="option-btn" data-q="1" data-opt="B">B) Necator americanus</button>
+                <button type="button" class="option-btn" data-q="1" data-opt="C">C) Enterobius vermicularis</button>
+                <button type="button" class="option-btn" data-q="1" data-opt="D">D) Taenia saginata</button>
+            </div>
+            <div class="explanation" id="exp-1"></div>
+        </div>
+
+        <!-- Caso Clínico 2 -->
+        <div class="question-block" data-q="2">
+            <div class="question-text">2. Paciente masculino de 45 años, diagnosticado con VIH, presenta diarrea crónica, pérdida de peso y episodios de neumonía. Se sospecha de un parásito que causa autoinfección. ¿Cuál es el agente más probable?</div>
+            <div class="options">
+                <button type="button" class="option-btn" data-q="2" data-opt="A">A) Giardia lamblia</button>
+                <button type="button" class="option-btn" data-q="2" data-opt="B">B) Trichuris trichiura</button>
+                <button type="button" class="option-btn" data-q="2" data-opt="C">C) Strongyloides stercoralis</button>
+                <button type="button" class="option-btn" data-q="2" data-opt="D">D) Cryptosporidium spp.</button>
+            </div>
+            <div class="explanation" id="exp-2"></div>
+        </div>
+
+        <!-- Caso Clínico 3 -->
+        <div class="question-block" data-q="3">
+            <div class="question-text">3. Madre refiere que su hijo de 5 años presenta intenso prurito anal nocturno e insomnio. Al revisar la región perianal, observa pequeños gusanos blancos. ¿Cuál es el diagnóstico?</div>
+            <div class="options">
+                <button type="button" class="option-btn" data-q="3" data-opt="A">A) Enterobius vermicularis</button>
+                <button type="button" class="option-btn" data-q="3" data-opt="B">B) Ascaris lumbricoides</button>
+                <button type="button" class="option-btn" data-q="3" data-opt="C">C) Taenia saginata</button>
+                <button type="button" class="option-btn" data-q="3" data-opt="D">D) Hymenolepis nana</button>
+            </div>
+            <div class="explanation" id="exp-3"></div>
+        </div>
+
+        <!-- Caso Clínico 4 -->
+        <div class="question-block" data-q="4">
+            <div class="question-text">4. Persona que vive en una granja de cerdos presenta disentería (diarrea con sangre y moco), dolor abdominal y fiebre. En heces se observan trofozoítos con cilios. ¿Cuál es el agente causal?</div>
+            <div class="options">
+                <button type="button" class="option-btn" data-q="4" data-opt="A">A) Entamoeba histolytica</button>
+                <button type="button" class="option-btn" data-q="4" data-opt="B">B) Balantidium coli</button>
+                <button type="button" class="option-btn" data-q="4" data-opt="C">C) Isospora belli</button>
+                <button type="button" class="option-btn" data-q="4" data-opt="D">D) Giardia lamblia</button>
+            </div>
+            <div class="explanation" id="exp-4"></div>
+        </div>
+
+        <!-- Caso Clínico 5 -->
+        <div class="question-block" data-q="5">
+            <div class="question-text">5. Niño de guardería presenta diarrea, dolor abdominal y heces pastosas. Se identifican huevos de un cestodo que no requiere hospedero intermediario. ¿Cuál es el parásito?</div>
+            <div class="options">
+                <button type="button" class="option-btn" data-q="5" data-opt="A">A) Taenia solium</button>
+                <button type="button" class="option-btn" data-q="5" data-opt="B">B) Diphyllobothrium latum</button>
+                <button type="button" class="option-btn" data-q="5" data-opt="C">C) Hymenolepis nana</button>
+                <button type="button" class="option-btn" data-q="5" data-opt="D">D) Necator americanus</button>
+            </div>
+            <div class="explanation" id="exp-5"></div>
+        </div>
+
+        <!-- Caso Clínico 6 -->
+        <div class="question-block" data-q="6">
+            <div class="question-text">6. Niño con dolor abdominal cólico, vómitos y eliminación de un gusano grande por la boca. Se diagnostica obstrucción intestinal parcial. ¿Cuál es el agente causal?</div>
+            <div class="options">
+                <button type="button" class="option-btn" data-q="6" data-opt="A">A) Ascaris lumbricoides</button>
+                <button type="button" class="option-btn" data-q="6" data-opt="B">B) Enterobius vermicularis</button>
+                <button type="button" class="option-btn" data-q="6" data-opt="C">C) Trichuris trichiura</button>
+                <button type="button" class="option-btn" data-q="6" data-opt="D">D) Strongyloides stercoralis</button>
+            </div>
+            <div class="explanation" id="exp-6"></div>
+        </div>
+
+        <!-- Caso Clínico 7 -->
+        <div class="question-block" data-q="7">
+            <div class="question-text">7. Paciente presenta diarrea sanguinolenta, dolor abdominal tipo cólico y heces con moco. En el examen microscópico se observan trofozoítos con pseudópodos. ¿Cuál es el diagnóstico?</div>
+            <div class="options">
+                <button type="button" class="option-btn" data-q="7" data-opt="A">A) Giardia lamblia</button>
+                <button type="button" class="option-btn" data-q="7" data-opt="B">B) Cryptosporidium spp.</button>
+                <button type="button" class="option-btn" data-q="7" data-opt="C">C) Entamoeba histolytica</button>
+                <button type="button" class="option-btn" data-q="7" data-opt="D">D) Balantidium coli</button>
+            </div>
+            <div class="explanation" id="exp-7"></div>
+        </div>
+
+        <!-- Caso Clínico 8 -->
+        <div class="question-block" data-q="8">
+            <div class="question-text">8. Paciente con convulsiones y lesiones quísticas en el cerebro. Refiere antecedentes de consumo de carne de cerdo mal cocida. ¿Cuál es el parásito implicado?</div>
+            <div class="options">
+                <button type="button" class="option-btn" data-q="8" data-opt="A">A) Taenia saginata</button>
+                <button type="button" class="option-btn" data-q="8" data-opt="B">B) Taenia solium</button>
+                <button type="button" class="option-btn" data-q="8" data-opt="C">C) Hymenolepis nana</button>
+                <button type="button" class="option-btn" data-q="8" data-opt="D">D) Diphyllobothrium latum</button>
+            </div>
+            <div class="explanation" id="exp-8"></div>
+        </div>
+
+        <!-- Caso Clínico 9 -->
+        <div class="question-block" data-q="9">
+            <div class="question-text">9. Viajero presenta diarrea acuosa, esteatorrea (heces grasosas), flatulencia y malabsorción. En heces se observan trofozoítos flagelados en forma de pera. ¿Cuál es el agente?</div>
+            <div class="options">
+                <button type="button" class="option-btn" data-q="9" data-opt="A">A) Cryptosporidium spp.</button>
+                <button type="button" class="option-btn" data-q="9" data-opt="B">B) Isospora belli</button>
+                <button type="button" class="option-btn" data-q="9" data-opt="C">C) Giardia lamblia</button>
+                <button type="button" class="option-btn" data-q="9" data-opt="D">D) Cyclospora cayetanensis</button>
+            </div>
+            <div class="explanation" id="exp-9"></div>
+        </div>
+
+        <!-- Caso Clínico 10 -->
+        <div class="question-block" data-q="10">
+            <div class="question-text">10. Paciente trasplantado renal presenta diarrea acuosa profusa y no sanguinolenta. Se realiza tinción de Ziehl-Neelsen modificada y se observan ooquistes. ¿Cuál es el agente oportunista?</div>
+            <div class="options">
+                <button type="button" class="option-btn" data-q="10" data-opt="A">A) Cryptosporidium spp.</button>
+                <button type="button" class="option-btn" data-q="10" data-opt="B">B) Isospora belli</button>
+                <button type="button" class="option-btn" data-q="10" data-opt="C">C) Microsporidia</button>
+                <button type="button" class="option-btn" data-q="10" data-opt="D">D) Cyclospora cayetanensis</button>
+            </div>
+            <div class="explanation" id="exp-10"></div>
+        </div>
+
+        <!-- Caso Clínico 11 -->
+        <div class="question-block" data-q="11">
+            <div class="question-text">11. Adolescente presenta anemia megaloblástica y antecedentes de consumo frecuente de pescado crudo. Se identifica un cestodo largo. ¿Cuál es el parásito?</div>
+            <div class="options">
+                <button type="button" class="option-btn" data-q="11" data-opt="A">A) Taenia solium</button>
+                <button type="button" class="option-btn" data-q="11" data-opt="B">B) Hymenolepis nana</button>
+                <button type="button" class="option-btn" data-q="11" data-opt="C">C) Diphyllobothrium latum</button>
+                <button type="button" class="option-btn" data-q="11" data-opt="D">D) Taenia saginata</button>
+            </div>
+            <div class="explanation" id="exp-11"></div>
+        </div>
+
+        <!-- Caso Clínico 12 -->
+        <div class="question-block" data-q="12">
+            <div class="question-text">12. Niño con diarrea crónica, dolor abdominal y retraso del crecimiento. Se observa prolapso rectal y en heces se identifican huevos con forma de limón. ¿Cuál es el agente?</div>
+            <div class="options">
+                <button type="button" class="option-btn" data-q="12" data-opt="A">A) Ascaris lumbricoides</button>
+                <button type="button" class="option-btn" data-q="12" data-opt="B">B) Trichuris trichiura</button>
+                <button type="button" class="option-btn" data-q="12" data-opt="C">C) Enterobius vermicularis</button>
+                <button type="button" class="option-btn" data-q="12" data-opt="D">D) Necator americanus</button>
+            </div>
+            <div class="explanation" id="exp-12"></div>
+        </div>
+
+
+        <h2>Parte 2: Ejercicios para Completar</h2>
+        <p>Escribe la palabra que falta. No importan las mayúsculas ni las tildes. Puedes presionar "Enter" o el botón "Verificar".</p>
+
+        <!-- Completar 13 -->
+        <div class="question-block" data-q="13">
+            <div class="question-text">13. El ___________ es la forma activa, móvil y vegetativa de los protozoos parásitos.</div>
+            <div class="fill-container">
+                <input type="text" class="fill-input" data-q="13" placeholder="Escribe tu respuesta aquí">
+                <button type="button" class="check-btn" data-q="13">Verificar</button>
+            </div>
+            <div class="explanation" id="exp-13"></div>
+        </div>
+
+        <!-- Completar 14 -->
+        <div class="question-block" data-q="14">
+            <div class="question-text">14. Las uncinarias y Strongyloides stercoralis penetran la piel a través del ___________ de Looss.</div>
+            <div class="fill-container">
+                <input type="text" class="fill-input" data-q="14" placeholder="Escribe tu respuesta aquí">
+                <button type="button" class="check-btn" data-q="14">Verificar</button>
+            </div>
+            <div class="explanation" id="exp-14"></div>
+        </div>
+
+        <!-- Completar 15 -->
+        <div class="question-block" data-q="15">
+            <div class="question-text">15. Los ___________ son helmintos pluricelulares cuyo cuerpo está dividido en proglótides.</div>
+            <div class="fill-container">
+                <input type="text" class="fill-input" data-q="15" placeholder="Escribe tu respuesta aquí">
+                <button type="button" class="check-btn" data-q="15">Verificar</button>
+            </div>
+            <div class="explanation" id="exp-15"></div>
+        </div>
+
+        <!-- Completar 16 -->
+        <div class="question-block" data-q="16">
+            <div class="question-text">16. El ___________ es el nematodo más grande que parasita el intestino humano.</div>
+            <div class="fill-container">
+                <input type="text" class="fill-input" data-q="16" placeholder="Escribe tu respuesta aquí">
+                <button type="button" class="check-btn" data-q="16">Verificar</button>
+            </div>
+            <div class="explanation" id="exp-16"></div>
+        </div>
+
+        <!-- Completar 17 -->
+        <div class="question-block" data-q="17">
+            <div class="question-text">17. Balantidium coli es el único protozoo con locomoción por ___________.</div>
+            <div class="fill-container">
+                <input type="text" class="fill-input" data-q="17" placeholder="Escribe tu respuesta aquí">
+                <button type="button" class="check-btn" data-q="17">Verificar</button>
+            </div>
+            <div class="explanation" id="exp-17"></div>
+        </div>
+
+        <!-- Completar 18 -->
+        <div class="question-block" data-q="18">
+            <div class="question-text">18. La forma de resistencia de los protozoos, que les permite sobrevivir en el ambiente, se llama ___________.</div>
+            <div class="fill-container">
+                <input type="text" class="fill-input" data-q="18" placeholder="Escribe tu respuesta aquí">
+                <button type="button" class="check-btn" data-q="18">Verificar</button>
+            </div>
+            <div class="explanation" id="exp-18"></div>
+        </div>
+
+        <!-- Completar 19 -->
+        <div class="question-block" data-q="19">
+            <div class="question-text">19. Los nematodos presentan ___________ sexual, lo que significa que el macho y la hembra son morfológicamente diferentes.</div>
+            <div class="fill-container">
+                <input type="text" class="fill-input" data-q="19" placeholder="Escribe tu respuesta aquí">
+                <button type="button" class="check-btn" data-q="19">Verificar</button>
+            </div>
+            <div class="explanation" id="exp-19"></div>
+        </div>
+
+        <!-- Completar 20 -->
+        <div class="question-block" data-q="20">
+            <div class="question-text">20. Las uncinarias y Necator americanus son parásitos ___________, ya que se alimentan de la sangre del huésped y pueden causar anemia.</div>
+            <div class="fill-container">
+                <input type="text" class="fill-input" data-q="20" placeholder="Escribe tu respuesta aquí">
+                <button type="button" class="check-btn" data-q="20">Verificar</button>
+            </div>
+            <div class="explanation" id="exp-20"></div>
+        </div>
+
+        <!-- Completar 21 -->
+        <div class="question-block" data-q="21">
+            <div class="question-text">21. La Giardia lamblia se desplaza mediante ___________.</div>
+            <div class="fill-container">
+                <input type="text" class="fill-input" data-q="21" placeholder="Escribe tu respuesta aquí">
+                <button type="button" class="check-btn" data-q="21">Verificar</button>
+            </div>
+            <div class="explanation" id="exp-21"></div>
+        </div>
+
+        <!-- Completar 22 -->
+        <div class="question-block" data-q="22">
+            <div class="question-text">22. El ___________ es el único protozoo ciliado que parasita el intestino humano.</div>
+            <div class="fill-container">
+                <input type="text" class="fill-input" data-q="22" placeholder="Escribe tu respuesta aquí">
+                <button type="button" class="check-btn" data-q="22">Verificar</button>
+            </div>
+            <div class="explanation" id="exp-22"></div>
+        </div>
+
+        <!-- Completar 23 -->
+        <div class="question-block" data-q="23">
+            <div class="question-text">23. El ___________ es el cestodo más común en niños y no requiere hospedero intermediario.</div>
+            <div class="fill-container">
+                <input type="text" class="fill-input" data-q="23" placeholder="Escribe tu respuesta aquí">
+                <button type="button" class="check-btn" data-q="23">Verificar</button>
+            </div>
+            <div class="explanation" id="exp-23"></div>
+        </div>
+
+        <!-- Completar 24 -->
+        <div class="question-block" data-q="24">
+            <div class="question-text">24. El diagnóstico de Enterobius vermicularis se realiza con la prueba de la ___________ adhesiva perianal.</div>
+            <div class="fill-container">
+                <input type="text" class="fill-input" data-q="24" placeholder="Escribe tu respuesta aquí">
+                <button type="button" class="check-btn" data-q="24">Verificar</button>
+            </div>
+            <div class="explanation" id="exp-24"></div>
+        </div>
+
+        <!-- Completar 25 -->
+        <div class="question-block" data-q="25">
+            <div class="question-text">25. La infección por uncinarias se adquiere por la penetración de larvas a través de la ___________.</div>
+            <div class="fill-container">
+                <input type="text" class="fill-input" data-q="25" placeholder="Escribe tu respuesta aquí">
+                <button type="button" class="check-btn" data-q="25">Verificar</button>
+            </div>
+            <div class="explanation" id="exp-25"></div>
+        </div>
+
+        <!-- Completar 26 -->
+        <div class="question-block" data-q="26">
+            <div class="question-text">26. El ___________ es un coccidio oportunista que causa diarrea en pacientes con SIDA.</div>
+            <div class="fill-container">
+                <input type="text" class="fill-input" data-q="26" placeholder="Escribe tu respuesta aquí">
+                <button type="button" class="check-btn" data-q="26">Verificar</button>
+            </div>
+            <div class="explanation" id="exp-26"></div>
+        </div>
+
+        <!-- Completar 27 -->
+        <div class="question-block" data-q="27">
+            <div class="question-text">27. Los trofozoítos de Entamoeba histolytica se desplazan mediante ___________.</div>
+            <div class="fill-container">
+                <input type="text" class="fill-input" data-q="27" placeholder="Escribe tu respuesta aquí">
+                <button type="button" class="check-btn" data-q="27">Verificar</button>
+            </div>
+            <div class="explanation" id="exp-27"></div>
+        </div>
+
+        <!-- Completar 28 -->
+        <div class="question-block" data-q="28">
+            <div class="question-text">28. Los coccidios intestinales como Cryptosporidium se diagnostican mediante la tinción de ___________ modificada.</div>
+            <div class="fill-container">
+                <input type="text" class="fill-input" data-q="28" placeholder="Escribe tu respuesta aquí">
+                <button type="button" class="check-btn" data-q="28">Verificar</button>
+            </div>
+            <div class="explanation" id="exp-28"></div>
+        </div>
+
+        <!-- Completar 29 -->
+        <div class="question-block" data-q="29">
+            <div class="question-text">29. La anemia megaloblástica es causada por Diphyllobothrium latum debido a la deficiencia de vitamina ___________.</div>
+            <div class="fill-container">
+                <input type="text" class="fill-input" data-q="29" placeholder="Escribe tu respuesta aquí">
+                <button type="button" class="check-btn" data-q="29">Verificar</button>
+            </div>
+            <div class="explanation" id="exp-29"></div>
+        </div>
+
+        <!-- Completar 30 -->
+        <div class="question-block" data-q="30">
+            <div class="question-text">30. Los cestodos tienen el cuerpo dividido en segmentos llamados ___________.</div>
+            <div class="fill-container">
+                <input type="text" class="fill-input" data-q="30" placeholder="Escribe tu respuesta aquí">
+                <button type="button" class="check-btn" data-q="30">Verificar</button>
+            </div>
+            <div class="explanation" id="exp-30"></div>
+        </div>
+
+        <!-- Completar 31 -->
+        <div class="question-block" data-q="31">
+            <div class="question-text">31. Los gusanos adultos de Ascaris lumbricoides viven en el ___________ delgado humano.</div>
+            <div class="fill-container">
+                <input type="text" class="fill-input" data-q="31" placeholder="Escribe tu respuesta aquí">
+                <button type="button" class="check-btn" data-q="31">Verificar</button>
+            </div>
+            <div class="explanation" id="exp-31"></div>
+        </div>
+
+        <!-- Completar 32 -->
+        <div class="question-block" data-q="32">
+            <div class="question-text">32. El Hymenolepis nana no requiere un hospedero ___________ para completar su ciclo de vida.</div>
+            <div class="fill-container">
+                <input type="text" class="fill-input" data-q="32" placeholder="Escribe tu respuesta aquí">
+                <button type="button" class="check-btn" data-q="32">Verificar</button>
+            </div>
+            <div class="explanation" id="exp-32"></div>
+        </div>
+
+        <!-- Completar 33 -->
+        <div class="question-block" data-q="33">
+            <div class="question-text">33. La infección por Ascaris lumbricoides se adquiere principalmente por la ingestión de ___________.</div>
+            <div class="fill-container">
+                <input type="text" class="fill-input" data-q="33" placeholder="Escribe tu respuesta aquí">
+                <button type="button" class="check-btn" data-q="33">Verificar</button>
+            </div>
+            <div class="explanation" id="exp-33"></div>
+        </div>
+
+        <!-- Completar 34 -->
+        <div class="question-block" data-q="34">
+            <div class="question-text">34. El prurito anal nocturno es el síntoma principal de la infección por ___________.</div>
+            <div class="fill-container">
+                <input type="text" class="fill-input" data-q="34" placeholder="Escribe tu respuesta aquí">
+                <button type="button" class="check-btn" data-q="34">Verificar</button>
+            </div>
+            <div class="explanation" id="exp-34"></div>
+        </div>
+
+        <!-- Completar 35 -->
+        <div class="question-block" data-q="35">
+            <div class="question-text">35. La ameba patógena para el humano que causa disentería es ___________.</div>
+            <div class="fill-container">
+                <input type="text" class="fill-input" data-q="35" placeholder="Escribe tu respuesta aquí">
+                <button type="button" class="check-btn" data-q="35">Verificar</button>
+            </div>
+            <div class="explanation" id="exp-35"></div>
+        </div>
+
+        <!-- Completar 36 -->
+        <div class="question-block" data-q="36">
+            <div class="question-text">36. Los protozoos se clasifican en amebas, flagelados, ciliados y ___________.</div>
+            <div class="fill-container">
+                <input type="text" class="fill-input" data-q="36" placeholder="Escribe tu respuesta aquí">
+                <button type="button" class="check-btn" data-q="36">Verificar</button>
+            </div>
+            <div class="explanation" id="exp-36"></div>
+        </div>
+
+        <!-- Completar 37 -->
+        <div class="question-block" data-q="37">
+            <div class="question-text">37. El ___________ es un parásito oportunista que se asocia frecuentemente a diarrea crónica en pacientes con SIDA.</div>
+            <div class="fill-container">
+                <input type="text" class="fill-input" data-q="37" placeholder="Escribe tu respuesta aquí">
+                <button type="button" class="check-btn" data-q="37">Verificar</button>
+            </div>
+            <div class="explanation" id="exp-37"></div>
+        </div>
+
+        <!-- Completar 38 -->
+        <div class="question-block" data-q="38">
+            <div class="question-text">38. La ___________ es la forma infectante de los protozoos intestinales, resistente al ambiente gástrico.</div>
+            <div class="fill-container">
+                <input type="text" class="fill-input" data-q="38" placeholder="Escribe tu respuesta aquí">
+                <button type="button" class="check-btn" data-q="38">Verificar</button>
+            </div>
+            <div class="explanation" id="exp-38"></div>
+        </div>
+
+        <!-- Completar 39 -->
+        <div class="question-block" data-q="39">
+            <div class="question-text">39. La uncinaria Necator americanus ingresa al cuerpo humano a través de la ___________.</div>
+            <div class="fill-container">
+                <input type="text" class="fill-input" data-q="39" placeholder="Escribe tu respuesta aquí">
+                <button type="button" class="check-btn" data-q="39">Verificar</button>
+            </div>
+            <div class="explanation" id="exp-39"></div>
+        </div>
+
+        <!-- Completar 40 -->
+        <div class="question-block" data-q="40">
+            <div class="question-text">40. El ___________ es el parásito causante de la neurocisticercosis.</div>
+            <div class="fill-container">
+                <input type="text" class="fill-input" data-q="40" placeholder="Escribe tu respuesta aquí">
+                <button type="button" class="check-btn" data-q="40">Verificar</button>
+            </div>
+            <div class="explanation" id="exp-40"></div>
+        </div>
+
+        <!-- Contenedor de resultados finales -->
+        <div id="resultado-final"></div>
+
+    </div>
+
+    <script>
+        // Variables de seguimiento
+        let answeredQuestions = 0;
+        let wrongAnswers = 0;
+        const totalQuestions = 40;
+
+        // Respuestas para opción múltiple (Casos clínicos 1-12)
+        const answers = {
+            1: { correct: 'B', text: 'Necator americanus (uncinaria) es hematófago, causa anemia ferropénica y se adquiere por penetración cutánea (Ciclo de Looss). La pica (geofagia) es un síntoma clásico de anemia severa por uncinarias.' },
+            2: { correct: 'C', text: 'Strongyloides stercoralis es único por su capacidad de autoinfección y puede causar hiperinfección y diseminación en pacientes inmunodeprimidos (como VIH), afectando pulmones e intestinos.' },
+            3: { correct: 'A', text: 'Enterobius vermicularis (oxiuro) causa prurito anal nocturno, ya que la hembra migra a la región perianal para depositar sus huevos durante la noche.' },
+            4: { correct: 'B', text: 'Balantidium coli es el único protozoo ciliado patógeno para el humano. El cerdo es el principal reservorio y la infección se adquiere por vía fecal-oral, causando disentería.' },
+            5: { correct: 'C', text: 'Hymenolepis nana es el cestodo más común en niños. No requiere hospedero intermediario, se transmite por vía fecal-oral y puede causar diarrea y dolor abdominal.' },
+            6: { correct: 'A', text: 'Ascaris lumbricoides es el nematodo más grande que parasita el intestino humano. Puede causar obstrucción intestinal y migración errática del gusano adulto.' },
+            7: { correct: 'C', text: 'Entamoeba histolytica causa disentería amebiana (diarrea con sangre y moco). Se observan trofozoítos con pseudópodos en heces frescas.' },
+            8: { correct: 'B', text: 'Taenia solium se asocia a neurocisticercosis cuando los humanos ingieren huevos (generalmente de heces humanas contaminadas o autoinfección). La carne de cerdo mal cocida contiene cisticercos que causan teniasis intestinal.' },
+            9: { correct: 'C', text: 'Giardia lamblia es un protozoo flagelado que causa malabsorción, diarrea acuosa y esteatorrea. Sus trofozoítos tienen forma de pera y dos núcleos.' },
+            10: { correct: 'A', text: 'Cryptosporidium spp. es un coccidio intestinal oportunista que causa diarrea acuosa profusa en pacientes inmunodeprimidos (como trasplantados). Se diagnostica con Ziehl-Neelsen modificado.' },
+            11: { correct: 'C', text: 'Diphyllobothrium latum se adquiere por consumo de pescado crudo o mal cocido. Compite por la vitamina B12 en el intestino, causando anemia megaloblástica.' },
+            12: { correct: 'B', text: 'Trichuris trichiura (tricocéfalo) causa diarrea crónica, retraso del crecimiento y prolapso rectal en infecciones intensas. Sus huevos tienen forma de limón con tapones polares.' }
+        };
+
+        // Respuestas para completar (13-40)
+        // Nota: Se ignoran tildes y mayúsculas al comparar.
+        const fillAnswers = {
+            13: { correct: 'trofozoito', text: 'El trofozoíto es la forma activa y móvil de los protozoos. El quiste es la forma de resistencia.' },
+            14: { correct: 'ciclo', text: 'El Ciclo de Looss describe la penetración activa de las larvas a través de la piel, migración pulmonar y llegada al intestino. Aplica para uncinarias y Strongyloides.' },
+            15: { correct: 'cestodos', text: 'Los cestodos son helmintos pluricelulares cuyo cuerpo está dividido en proglótides. Ejemplos: Taenia solium, Taenia saginata, Hymenolepis nana.' },
+            16: { correct: 'ascaris lumbricoides', text: 'Ascaris lumbricoides es el nematodo más grande que parasita el intestino humano. Las hembras pueden medir hasta 40 cm.' },
+            17: { correct: 'cilios', text: 'Balantidium coli es el único protozoo ciliado patógeno para el humano. Utiliza cilios para su locomoción.' },
+            18: { correct: 'quiste', text: 'El quiste es la forma de resistencia de los protozoos, permitiéndoles sobrevivir en condiciones ambientales adversas y transmitirse a nuevos hospederos.' },
+            19: { correct: 'dimorfismo', text: 'El dimorfismo sexual en nematodos significa que el macho y la hembra tienen diferencias morfológicas evidentes, como el tamaño y la forma de la cola.' },
+            20: { correct: 'hematofagos', text: 'Las uncinarias (Necator americanus y Ancylostoma duodenale) son hematófagas. Se adhieren a la mucosa intestinal y succionan sangre, causando anemia ferropénica.' },
+            21: { correct: 'flagelos', text: 'La Giardia lamblia es un protozoo flagelado. Utiliza flagelos para desplazarse en el intestino delgado.' },
+            22: { correct: 'balantidium coli', text: 'Balantidium coli es el único protozoo ciliado patógeno para el humano. El cerdo es el principal reservorio y la infección se adquiere por vía fecal-oral, causando disentería.' },
+            23: { correct: 'hymenolepis nana', text: 'Hymenolepis nana es el cestodo más común en niños. No requiere hospedero intermediario, se transmite por vía fecal-oral y puede causar diarrea y dolor abdominal.' },
+            24: { correct: 'cinta', text: 'La prueba de la cinta adhesiva (o prueba de Graham) se utiliza para diagnosticar Enterobius vermicularis, colocando una cinta transparente en la región perianal.' },
+            25: { correct: 'piel', text: 'Las uncinarias (Necator americanus y Ancylostoma duodenale) ingresan al cuerpo humano a través de la piel intacta, en un proceso conocido como Ciclo de Looss.' },
+            26: { correct: 'cryptosporidium', text: 'Cryptosporidium spp. es un coccidio intestinal oportunista que causa diarrea acuosa profusa en pacientes inmunodeprimidos (como VIH/SIDA). Se diagnostica con Ziehl-Neelsen modificado.' },
+            27: { correct: 'pseudopodos', text: 'Los trofozoítos de Entamoeba histolytica se desplazan mediante pseudópodos (falsos pies).' },
+            28: { correct: 'ziehl-neelsen', text: 'La tinción de Ziehl-Neelsen modificada es la técnica estándar para visualizar los ooquistes de Cryptosporidium y otros coccidios intestinales.' },
+            29: { correct: 'b12', text: 'Diphyllobothrium latum compite por la vitamina B12 en el intestino del huésped, lo que puede causar anemia megaloblástica.' },
+            30: { correct: 'proglotides', text: 'El cuerpo de los cestodos está formado por segmentos llamados proglótides (o proglótides).' },
+            31: { correct: 'intestino', text: 'Los gusanos adultos de Ascaris lumbricoides residen en el intestino delgado humano, donde pueden causar obstrucción intestinal y migración errática.' },
+            32: { correct: 'intermediario', text: 'Hymenolepis nana es único entre los cestodos porque no requiere un hospedero intermediario; puede completar su ciclo en un solo huésped.' },
+            33: { correct: 'huevos', text: 'La infección por Ascaris lumbricoides se adquiere principalmente por la ingestión de huevos embrionados, generalmente a través de alimentos o agua contaminada.' },
+            34: { correct: 'enterobius vermicularis', text: 'El prurito anal nocturno es el síntoma principal de la infección por Enterobius vermicularis (oxiuro).' },
+            35: { correct: 'entamoeba histolytica', text: 'Entamoeba histolytica es la ameba patógena para el humano que causa disentería amebiana.' },
+            36: { correct: 'apicomplexos', text: 'Los protozoos se clasifican en amebas, flagelados, ciliados y apicomplexos (o coccidios).' },
+            37: { correct: 'cryptosporidium', text: 'Cryptosporidium es un parásito oportunista que causa diarrea crónica severa en pacientes con SIDA.' },
+            38: { correct: 'quiste', text: 'El quiste es la forma infectante de los protozoos intestinales, resistente al ambiente gástrico.' },
+            39: { correct: 'piel', text: 'La uncinaria Necator americanus ingresa al cuerpo humano a través de la piel, en un proceso conocido como Ciclo de Looss.' },
+            40: { correct: 'taenia solium', text: 'Taenia solium es el parásito causante de la neurocisticercosis, que ocurre cuando los humanos ingieren huevos (generalmente de heces humanas contaminadas o autoinfección) y las larvas se alojan en el sistema nervioso central.' }
+        };
+
+        // Lógica para opción múltiple
+        function checkAnswer(qNum, selectedOption) {
+            const questionBlock = document.querySelector(`.question-block[data-q="${qNum}"]`);
+            const buttons = questionBlock.querySelectorAll('.option-btn');
+            const explanationDiv = document.getElementById(`exp-${qNum}`);
+            
+            // Deshabilitar botones
+            buttons.forEach(btn => btn.disabled = true);
+            
+            const isCorrect = selectedOption === answers[qNum].correct;
+            
+            // Actualizar contadores
+            answeredQuestions++;
+            if (!isCorrect) wrongAnswers++;
+
+            // Estilos y contenido de la explicación
+            if (isCorrect) {
+                explanationDiv.className = 'explanation correct';
+                explanationDiv.innerHTML = `<span class="badge">¡Correcto!</span> ${answers[qNum].text}`;
+            } else {
+                explanationDiv.className = 'explanation incorrect';
+                explanationDiv.innerHTML = `<span class="badge">Incorrecto.</span> La respuesta correcta era la <strong>${answers[qNum].correct}</strong>. ${answers[qNum].text}`;
+            }
+            
+            // Mostrar la explicación
+            explanationDiv.style.display = 'block';
+            
+            // Resaltar visualmente el botón correcto y el incorrecto seleccionado
+            buttons.forEach(btn => {
+                const btnText = btn.getAttribute('data-opt');
+                if (btnText === answers[qNum].correct) {
+                    btn.style.backgroundColor = '#a9dfbf';
+                    btn.style.borderColor = '#2ecc71';
+                } else if (btnText === selectedOption) {
+                    btn.style.backgroundColor = '#f5b7b1';
+                    btn.style.borderColor = '#e74c3c';
+                }
+            });
+
+            // Verificar si el examen ha terminado
+            checkCompletion();
+        }
+
+        // Lógica para completar
+        function normalizeText(text) {
+            return text.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        }
+
+        function checkFillAnswer(qNum) {
+            const questionBlock = document.querySelector(`.question-block[data-q="${qNum}"]`);
+            const inputElement = questionBlock.querySelector('.fill-input');
+            const btnElement = questionBlock.querySelector('.check-btn');
+            const explanationDiv = document.getElementById(`exp-${qNum}`);
+            
+            const userAnswer = normalizeText(inputElement.value);
+            const correctAnswer = normalizeText(fillAnswers[qNum].correct);
+            
+            // Deshabilitar input y botón
+            inputElement.disabled = true;
+            btnElement.disabled = true;
+            
+            const isCorrect = userAnswer === correctAnswer;
+            
+            // Actualizar contadores
+            answeredQuestions++;
+            if (!isCorrect) wrongAnswers++;
+
+            // Estilos y contenido de la explicación
+            if (isCorrect) {
+                explanationDiv.className = 'explanation correct';
+                explanationDiv.innerHTML = `<span class="badge">¡Correcto!</span> ${fillAnswers[qNum].text}`;
+                inputElement.style.borderColor = '#2ecc71';
+                inputElement.style.backgroundColor = '#d5f5e3';
+            } else {
+                explanationDiv.className = 'explanation incorrect';
+                explanationDiv.innerHTML = `<span class="badge">Incorrecto.</span> La respuesta correcta era <strong>${fillAnswers[qNum].correct}</strong>. ${fillAnswers[qNum].text}`;
+                inputElement.style.borderColor = '#e74c3c';
+                inputElement.style.backgroundColor = '#fadbd8';
+            }
+            
+            explanationDiv.style.display = 'block';
+
+            // Verificar si el examen ha terminado
+            checkCompletion();
+        }
+
+        // Lógica de finalización y evaluación de porcentaje
+        function checkCompletion() {
+            if (answeredQuestions === totalQuestions) {
+                const resultsDiv = document.getElementById('resultado-final');
+                const wrongPercentage = (wrongAnswers / totalQuestions) * 100;
+                
+                resultsDiv.style.display = 'block';
+                
+                if (wrongPercentage > 30) {
+                    resultsDiv.className = 'reprobado';
+                    resultsDiv.innerHTML = 'Burro Pacarai';
+                } else {
+                    resultsDiv.className = 'aprobado';
+                    resultsDiv.innerHTML = `¡Felicidades! Has completado el examen.<br>Errores: ${wrongAnswers} de ${totalQuestions} (${wrongPercentage.toFixed(1)}%).<br>¡Buen trabajo!`;
+                }
+            }
+        }
+
+        // Inicialización y asignación de eventos (Mobile-Friendly)
+        document.addEventListener('DOMContentLoaded', () => {
+            // Asignar eventos a botones de opción múltiple
+            document.querySelectorAll('.option-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const q = this.getAttribute('data-q');
+                    const opt = this.getAttribute('data-opt');
+                    checkAnswer(q, opt);
+                });
+            });
+
+            // Asignar eventos a botones de verificar (completar)
+            document.querySelectorAll('.check-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const q = this.getAttribute('data-q');
+                    checkFillAnswer(q);
+                });
+            });
+
+            // Permitir presionar "Enter" en los inputs
+            document.querySelectorAll('.fill-input').forEach(input => {
+                input.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        const q = this.getAttribute('data-q');
+                        checkFillAnswer(q);
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
